@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  listProducts() {
+  listProducts(): void {
 
     // check if "id" parameter is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
