@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../services/product.service';
-import {Product} from '../common/product';
+import {ProductService} from '../../services/product.service';
+import {Product} from '../../common/product';
 import {ActivatedRoute} from '@angular/router';
-import {CartItem} from '../common/cart-item';
-import {CartService} from '../services/cart.service';
+import {CartItem} from '../../common/cart-item';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
