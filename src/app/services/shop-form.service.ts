@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Country} from '../common/country';
-import {map} from 'rxjs/operators';
 import {State} from '../common/state';
 
 @Injectable({
@@ -11,7 +10,7 @@ import {State} from '../common/state';
 export class ShopFormService {
 
   private countriesUrl = 'http://localhost:8080/api/country/getAll';
-  private stateUrl = 'http://localhost:8080/api/states';
+  private stateUrl = 'http://localhost:8080/api/state';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,23 +43,10 @@ export class ShopFormService {
   }
 
   getStates(countryCode: string): Observable<State[]> {
-    const searchStatesUrl = `${this.stateUrl}/search/findByCountry_Code?code=${countryCode}`;
+    const searchStatesUrl = `${this.stateUrl}/search/countryCode?code=${countryCode}`;
 
-    return this.httpClient.get<ResponseStates>(searchStatesUrl).pipe(
-      map(response => response._embedded.states)
-    );
+    return this.httpClient.get<State[]>(searchStatesUrl);
   }
 
 }
 
-interface ResponseCountries {
-  _embedded: {
-    countries: Country[];
-  };
-}
-
-interface ResponseStates {
-  _embedded: {
-    states: State[];
-  };
-}
