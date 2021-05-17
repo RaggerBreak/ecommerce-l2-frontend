@@ -10,7 +10,7 @@ import {State} from '../common/state';
 })
 export class ShopFormService {
 
-  private countriesUrl = 'http://localhost:8080/api/countries';
+  private countriesUrl = 'http://localhost:8080/api/country/getAll';
   private stateUrl = 'http://localhost:8080/api/states';
 
   constructor(private httpClient: HttpClient) { }
@@ -40,9 +40,7 @@ export class ShopFormService {
   }
 
   getCountries(): Observable<Country[]> {
-    return this.httpClient.get<ResponseCountries>(this.countriesUrl).pipe(
-      map(response => response._embedded.countries)
-    );
+    return this.httpClient.get<Country[]>(this.countriesUrl);
   }
 
   getStates(countryCode: string): Observable<State[]> {
