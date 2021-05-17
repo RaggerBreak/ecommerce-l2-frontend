@@ -11,7 +11,7 @@ import {ProductCategory} from '../common/product-category';
 export class ProductService {
 
   private baseUrl = 'http://localhost:8080/api/products';
-  private categoryUrl = 'http://localhost:8080/api/product-category';
+  private categoryUrl = 'http://localhost:8080/api/productCategory';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -48,9 +48,7 @@ export class ProductService {
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
-    return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
-      map(response => response._embedded.productCategory)
-    );
+    return this.httpClient.get<ProductCategory[]>(`${this.categoryUrl}/getAll`);
   }
 }
 
@@ -63,11 +61,5 @@ interface GetResponseProduct {
     totalElements: number,
     totalPages: number,
     number: number
-  };
-}
-
-interface GetResponseProductCategory {
-  _embedded: {
-    productCategory: ProductCategory[];
   };
 }
