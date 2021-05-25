@@ -56,7 +56,7 @@ export class ProductListComponent implements OnInit {
 
     this.productService.searchProductsPaginate(this.pageNumber - 1, this.pageSize, keyword).subscribe(
       data => {
-        this.products = data._embedded.products;
+        this.products = data.products;
         this.pageNumber = data.page.number + 1;
         this.pageSize = data.page.size;
         this.totalElements = data.page.totalElements;
@@ -81,7 +81,7 @@ export class ProductListComponent implements OnInit {
 
     this.productService.getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
       .subscribe(data => {
-        this.products = data._embedded.products;
+        this.products = data.products;
         this.pageNumber = data.page.number + 1;
         this.pageSize = data.page.size;
         this.totalElements = data.page.totalElements;
