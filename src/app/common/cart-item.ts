@@ -3,14 +3,14 @@ import {Product} from './product';
 export class CartItem {
   id: number;
   name: string;
-  imageUrl: string;
+  imageId: number;
   unitPrice: number;
   quantity: number;
 
   constructor(product: Product) {
     this.id = product.id;
     this.name = product.name;
-    this.imageUrl = product.imageUrl;
+    this.imageId = product.imageId;
     this.unitPrice = product.unitPrice;
 
     this.quantity = 1;

@@ -1,7 +1,7 @@
 <div class="detail-section">
   <div class="container-fluid">
 
-    <img src="{{product?.imageUrl}}" class="detail-img">
+    <img src="http://localhost:8080/api/image/{{product?.imageId}}" class="detail-img">
 
     <h3>{{product.name}}</h3>
     <div class="price">{{product.unitPrice | currency:'USD'}}</div>
