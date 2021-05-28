@@ -38,6 +38,11 @@ export class ProductFilterComponent implements OnInit {
     }
 
     this.productFilter.minPrice = this.minPrice.value;
+
+    if (this.maxPrice.value < this.productFilter.minPrice) {
+      this.maxPrice.setValue(+this.productFilter.minPrice + 1);
+    }
+
     this.productFilter.maxPrice = this.maxPrice.value;
 
     console.log(`minPrice: ${this.productFilter.minPrice}, maxPrice: ${this.productFilter.maxPrice}`);
