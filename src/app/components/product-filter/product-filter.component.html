@@ -1,14 +1,25 @@
 <hr>
 <ul class="list-unstyled navbar-list">
-  <li>
-    <span class="filter-title">Price</span>
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Min"/>
-      <input type="text" class="form-control" placeholder="Max"/>
-    </div>
-  </li>
-  <hr>
-  <li class="p-2">
-    <button class="btn btn-primary float-right" style="background-color: #205b8d"><i class="fa fa-filter"></i></button>
-  </li>
+  <form [formGroup]="filterFormGroup" (ngSubmit)="onSubmit()">
+    <li>
+      <span class="filter-title">Price</span>
+      <div formGroupName="price" class="input-group">
+
+        <input [className]="(minPrice.invalid && (minPrice.dirty || minPrice.touched)) ? 'form-control alert-danger' : 'form-control'"
+               formControlName="minPrice"
+               type="text" class="form-control"
+               placeholder="Min"/>
+
+        <input [className]="(maxPrice.invalid && (maxPrice.dirty || maxPrice.touched)) ? 'form-control alert-danger' : 'form-control'"
+               formControlName="maxPrice"
+               type="text" class="form-control"
+               placeholder="Max"/>
+      </div>
+    </li>
+    <hr>
+    <li class="p-2">
+      <button type="reset" class="btn btn-danger float-left"><i class="fa fa-backspace"></i></button>
+      <button type="submit" class="btn btn-primary float-right"><i class="fa fa-filter"></i></button>
+    </li>
+  </form>
 </ul>
