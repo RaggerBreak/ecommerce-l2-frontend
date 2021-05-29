@@ -38,12 +38,15 @@ export class ProductFilterComponent implements OnInit {
     }
 
     this.productFilter.minPrice = this.minPrice.value;
-
-    if (this.maxPrice.value < this.productFilter.minPrice) {
-      this.maxPrice.setValue(+this.productFilter.minPrice + 1);
-    }
-
     this.productFilter.maxPrice = this.maxPrice.value;
+
+    if (this.maxPrice.value !== '' && this.productFilter.maxPrice < this.productFilter.minPrice) {
+      this.productFilter.minPrice = this.maxPrice.value;
+      this.productFilter.maxPrice = this.minPrice.value;
+
+      this.minPrice.setValue(this.productFilter.minPrice);
+      this.maxPrice.setValue(this.productFilter.maxPrice);
+    }
 
     console.log(`minPrice: ${this.productFilter.minPrice}, maxPrice: ${this.productFilter.maxPrice}`);
 
