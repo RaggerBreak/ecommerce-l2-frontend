@@ -4,6 +4,9 @@ import {Product} from '../../common/product';
 import {ActivatedRoute} from '@angular/router';
 import {CartItem} from '../../common/cart-item';
 import {CartService} from '../../services/cart.service';
+import {ProductFilterService} from '../../services/product-filter.service';
+import {ProductFilter} from '../../common/product-filter';
+import {isNumber} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-product-list',
@@ -24,18 +27,25 @@ export class ProductListComponent implements OnInit {
   totalElements: number = 0;
   maxSize: number = 5;
 
+  //product filter
+  productFilter: ProductFilter = new ProductFilter();
+  filterMode: boolean = false;
+
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private route: ActivatedRoute) { }
+              private productFilterService: ProductFilterService,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
+    this.handleProductFilter();
+
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
   }
 
   listProducts(): void {
-
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
@@ -47,6 +57,8 @@ export class ProductListComponent implements OnInit {
   }
 
   handleSearchProducts(): void {
+    this.productFilterService.setValue(new ProductFilter());
+
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
 
     if (this.previousKeyword !== keyword) {
@@ -79,13 +91,28 @@ export class ProductListComponent implements OnInit {
     }
     this.previousCategoryId = this.currentCategoryId;
 
-    this.productService.getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
-      .subscribe(data => {
-        this.products = data.products;
-        this.pageNumber = data.page.number + 1;
-        this.pageSize = data.page.size;
-        this.totalElements = data.page.totalElements;
-      });
+    if (this.filterMode) {
+
+      this.productService.getProductListPaginateFilter(this.pageNumber - 1, this.pageSize, this.currentCategoryId, this.productFilter)
+        .subscribe(data => {
+          this.products = data.products;
+          this.pageNumber = data.page.number + 1;
+          this.pageSize = data.page.size;
+          this.totalElements = data.page.totalElements;
+        });
+
+    } else {
+
+      this.productService.getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
+        .subscribe(data => {
+          this.products = data.products;
+          this.pageNumber = data.page.number + 1;
+          this.pageSize = data.page.size;
+          this.totalElements = data.page.totalElements;
+        });
+
+    }
+
 
   }
 
@@ -100,4 +127,16 @@ export class ProductListComponent implements OnInit {
 
     this.cartService.addToCart(cartItem);
   }
+
+  //Filter
+  handleProductFilter(): void {
+    this.productFilterService.productFilter.subscribe(data => {
+      this.productFilter = data;
+      if (data.maxPrice || data.minPrice) {
+        this.filterMode = true;
+        this.listProducts();
+      }
+    });
+  }
+
 }

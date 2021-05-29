@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductFilter} from '../../common/product-filter';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProductFilterService} from '../../services/product-filter.service';
 
 @Component({
   selector: 'app-product-filter',
@@ -13,7 +14,8 @@ export class ProductFilterComponent implements OnInit {
 
   filterFormGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private productFilterService: ProductFilterService) { }
 
   ngOnInit(): void {
     this.filterFormGroup = this.formBuilder.group({
@@ -48,7 +50,7 @@ export class ProductFilterComponent implements OnInit {
       this.maxPrice.setValue(this.productFilter.maxPrice);
     }
 
-    console.log(`minPrice: ${this.productFilter.minPrice}, maxPrice: ${this.productFilter.maxPrice}`);
+    this.productFilterService.setValue(this.productFilter);
 
   }
 

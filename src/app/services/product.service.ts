@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Product} from '../common/product';
 import {map} from 'rxjs/operators';
 import {ProductCategory} from '../common/product-category';
+import {ProductFilter} from '../common/product-filter';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,17 @@ export class ProductService {
 
     const searchUrl = `${this.productUrl}/search/category?id=${categoryId}`
                         + `&page=${page}&size=${pageSize}`;
+
+    return this.httpClient.get<GetResponseProduct>(searchUrl);
+  }
+
+  getProductListPaginateFilter(page: number,
+                              pageSize: number,
+                              categoryId: number,
+                              productFilter: ProductFilter): Observable<GetResponseProduct> {
+
+    const searchUrl = `${this.productUrl}/search/categoryFilter?id=${categoryId}`
+      + `&page=${page}&size=${pageSize}`;
 
     return this.httpClient.get<GetResponseProduct>(searchUrl);
   }
