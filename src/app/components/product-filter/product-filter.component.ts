@@ -18,6 +18,7 @@ export class ProductFilterComponent implements OnInit {
               private productFilterService: ProductFilterService) { }
 
   ngOnInit(): void {
+    this.clearFilter();
     this.filterFormGroup = this.formBuilder.group({
 
       price: this.formBuilder.group({
@@ -52,6 +53,20 @@ export class ProductFilterComponent implements OnInit {
 
     this.productFilterService.setValue(this.productFilter);
 
+  }
+
+  onReset(): void {
+    this.productFilterService.clearFilter();
+  }
+
+  clearFilter(): void {
+    this.productFilterService.productFilterClear.subscribe(data => {
+      console.log('CLEAR');
+      if (data === true) {
+        this.minPrice.setValue(undefined);
+        this.maxPrice.setValue(undefined);
+      }
+    });
   }
 
 }

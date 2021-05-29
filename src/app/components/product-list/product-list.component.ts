@@ -6,7 +6,6 @@ import {CartItem} from '../../common/cart-item';
 import {CartService} from '../../services/cart.service';
 import {ProductFilterService} from '../../services/product-filter.service';
 import {ProductFilter} from '../../common/product-filter';
-import {isNumber} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-product-list',
@@ -57,7 +56,7 @@ export class ProductListComponent implements OnInit {
   }
 
   handleSearchProducts(): void {
-    this.productFilterService.setValue(new ProductFilter());
+    this.productFilterService.clearFilter();
 
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
 
@@ -131,10 +130,20 @@ export class ProductListComponent implements OnInit {
   //Filter
   handleProductFilter(): void {
     this.productFilterService.productFilter.subscribe(data => {
+
+      this.pageNumber = 1;
+
       this.productFilter = data;
       if (data.maxPrice || data.minPrice) {
+
         this.filterMode = true;
         this.listProducts();
+
+      } else {
+
+        this.filterMode = false;
+        this.listProducts();
+
       }
     });
   }

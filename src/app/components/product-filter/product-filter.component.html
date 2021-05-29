@@ -1,6 +1,6 @@
 <hr>
 <ul class="list-unstyled navbar-list">
-  <form [formGroup]="filterFormGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="filterFormGroup" (ngSubmit)="onSubmit()" (reset)="onReset()">
     <li>
       <span class="filter-title">Price</span>
       <div formGroupName="price" class="input-group">
