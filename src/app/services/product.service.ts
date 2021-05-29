@@ -33,14 +33,14 @@ export class ProductService {
   }
 
   getProductListPaginateFilter(page: number,
-                              pageSize: number,
-                              categoryId: number,
-                              productFilter: ProductFilter): Observable<GetResponseProduct> {
+                               pageSize: number,
+                               categoryId: number,
+                               productFilter: ProductFilter): Observable<GetResponseProduct> {
 
     const searchUrl = `${this.productUrl}/search/categoryFilter?id=${categoryId}`
       + `&page=${page}&size=${pageSize}`;
 
-    return this.httpClient.get<GetResponseProduct>(searchUrl);
+    return this.httpClient.post<GetResponseProduct>(searchUrl, productFilter);
   }
 
   searchProductsPaginate(page: number,

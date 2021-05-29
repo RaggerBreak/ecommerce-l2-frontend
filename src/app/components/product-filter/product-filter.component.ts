@@ -61,7 +61,6 @@ export class ProductFilterComponent implements OnInit {
 
   clearFilter(): void {
     this.productFilterService.productFilterClear.subscribe(data => {
-      console.log('CLEAR');
       if (data === true) {
         this.minPrice.setValue(undefined);
         this.maxPrice.setValue(undefined);

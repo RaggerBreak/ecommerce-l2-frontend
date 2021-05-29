@@ -56,7 +56,7 @@ export class ProductListComponent implements OnInit {
   }
 
   handleSearchProducts(): void {
-    this.productFilterService.clearFilter();
+    this.filterMode = false;
 
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
 
