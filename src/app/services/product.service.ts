@@ -16,10 +16,10 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProduct(productId: number): Observable<any> {
+  getProduct(productId: number): Observable<Product> {
     const productUrl = `${this.productUrl}/${productId}`;
 
-    return this.httpClient.get<GetProduct>(productUrl);
+    return this.httpClient.get<Product>(productUrl);
   }
 
   getProductListPaginate(page: number,
@@ -72,13 +72,5 @@ interface GetResponseProduct {
     totalPages: number;
     number: number;
   };
-}
-
-interface GetProduct {
-    _links: {
-      image: {
-        href: string;
-      }
-    };
 }
 

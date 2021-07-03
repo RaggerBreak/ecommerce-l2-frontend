@@ -10,5 +10,9 @@ export class Product {
   lastUpdated: Date;
   imageId: number;
 
-  imageUrl: string;
+  _links: {
+    image: {
+      href: string;
+    }
+  };
 }
