@@ -9,4 +9,6 @@ export class Product {
   dateCreated: Date;
   lastUpdated: Date;
   imageId: number;
+
+  imageUrl: string;
 }

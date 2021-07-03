@@ -31,7 +31,8 @@ export class ProductDetailsComponent implements OnInit {
 
     this.productService.getProduct(productId).subscribe(
       data => {
-        this.product = data;
+
+        this.product.imageUrl = data._links.image.href;
       });
   }
 
