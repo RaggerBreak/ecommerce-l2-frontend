@@ -8,7 +8,7 @@
           <div class="product-box">
 
             <a routerLink="/products/{{tempProduct.id}}">
-              <img src="http://localhost:8080/api/image/{{tempProduct.imageId}}" class="image-responsive"/>
+              <img src="{{tempProduct?._links.image.href}}" class="image-responsive"/>
             </a>
 
             <a routerLink="/products/{{tempProduct.id}}">
